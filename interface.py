@@ -70,7 +70,7 @@ def create_numerical_keyboard():
 
 # Création de la fenêtre principale
 root = tk.Tk()
-root.title("Calculateur de concentration d'éthanol")
+root.title("Optosense syringe pump controller")
 root.geometry("800x500")
 
 # Validation pour les champs d'entrée
