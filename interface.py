@@ -49,7 +49,7 @@ def delete_character():
 def create_numerical_keyboard():
     """Crée un clavier numérique pour saisir des valeurs"""
     keyboard_frame = tk.Frame(root)
-    keyboard_frame.pack(pady=(10, 0))
+    keyboard_frame.place(relx=0.85, rely=0.1, anchor="n")
 
     buttons = [
         ('7', '8', '9'),
@@ -71,7 +71,7 @@ def create_numerical_keyboard():
 # Création de la fenêtre principale
 root = tk.Tk()
 root.title("Calculateur de concentration d'éthanol")
-root.geometry("400x500")
+root.geometry("800x500")
 
 # Validation pour les champs d'entrée
 vcmd = root.register(validate_float)
