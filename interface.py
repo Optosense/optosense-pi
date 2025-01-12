@@ -32,10 +32,46 @@ def calculate_volumes():
     except ValueError:
         result_label.config(text="Erreur : Veuillez entrer des valeurs valides !")
 
+def insert_value(value):
+    """Insère une valeur dans l'entrée sélectionnée"""
+    focused_widget = root.focus_get()
+    if isinstance(focused_widget, tk.Entry):
+        focused_widget.insert(tk.END, value)
+
+def delete_character():
+    """Supprime le dernier caractère dans l'entrée active"""
+    focused_widget = root.focus_get()
+    if isinstance(focused_widget, tk.Entry):
+        current_text = focused_widget.get()
+        focused_widget.delete(0, tk.END)
+        focused_widget.insert(0, current_text[:-1])
+
+def create_numerical_keyboard():
+    """Crée un clavier numérique pour saisir des valeurs"""
+    keyboard_frame = tk.Frame(root)
+    keyboard_frame.pack(pady=(10, 0))
+
+    buttons = [
+        ('7', '8', '9'),
+        ('4', '5', '6'),
+        ('1', '2', '3'),
+        ('.', '0', '⌫')
+    ]
+
+    for row in buttons:
+        row_frame = tk.Frame(keyboard_frame)
+        row_frame.pack()
+        for btn_text in row:
+            if btn_text == '⌫':
+                btn = tk.Button(row_frame, text=btn_text, command=delete_character, width=5)
+            else:
+                btn = tk.Button(row_frame, text=btn_text, command=lambda val=btn_text: insert_value(val), width=5)
+            btn.pack(side=tk.LEFT, padx=2, pady=2)
+
 # Création de la fenêtre principale
 root = tk.Tk()
 root.title("Calculateur de concentration d'éthanol")
-root.geometry("400x400")
+root.geometry("400x500")
 
 # Validation pour les champs d'entrée
 vcmd = root.register(validate_float)
@@ -78,6 +114,9 @@ entry_volume.pack(pady=(0, 10))
 # Bouton pour calculer
 submit_button = tk.Button(root, text="Calculer", command=calculate_volumes)
 submit_button.pack(pady=(10, 0))
+
+# Clavier numérique
+create_numerical_keyboard()
 
 # Label pour afficher le résultat
 result_label = tk.Label(root, text="", fg="blue")
