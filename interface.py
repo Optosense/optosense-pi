@@ -5,7 +5,7 @@ from tkinter import ttk
 import serial
 import time
 
-# ser = serial.Serial("/dev/ttyACM1", 9600, timeout=1)
+# ser = serial.Serial("/dev/ttyACM0", 9600, timeout=1)
 # time.sleep(0.1)
 # ser.write("n".encode("ascii"))
 
@@ -38,10 +38,10 @@ def calculate_volumes():
         print(str(volume_ethanol))
         print(str(volume_water))
 
-        # ser.write(str(int(volume_ethanol)).encode("ascii"))
-        # time.sleep(0.5)
-        # ser.write(str(int(volume_water)).encode("ascii"))
-        # time.sleep(0.5)
+        ser.write(str(int(volume_ethanol)).encode("ascii"))
+        time.sleep(0.5)
+        ser.write(str(int(volume_water)).encode("ascii"))
+        time.sleep(0.5)
 
         result_label.config(
             text=f"Volume d'éthanol : {volume_ethanol:.2f} mL\nVolume d'eau : {volume_water:.2f} mL"
