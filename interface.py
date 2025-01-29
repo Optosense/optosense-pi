@@ -5,9 +5,8 @@ from tkinter import ttk
 import serial
 import time
 
-# ser = serial.Serial("/dev/ttyACM0", 9600, timeout=1)
-# time.sleep(0.1)
-# ser.write("n".encode("ascii"))
+ser = serial.Serial("/dev/ttyACM0", 9600, timeout=1)
+time.sleep(.5)
 
 def validate_float(value_if_allowed):
     """Validation pour permettre les valeurs flottantes avec ',' ou '.'"""
@@ -31,17 +30,15 @@ def calculate_volumes():
             return
 
         # Calcul du volume d'éthanol à mélanger
-        volume_ethanol = (desired_concentration / current_concentration) * final_volume
-        volume_water = final_volume - volume_ethanol
+        volume_ethanol = round((desired_concentration / current_concentration) * final_volume, 2)
+        volume_water = round(final_volume - volume_ethanol, 2)
 
-
-        print(str(volume_ethanol))
-        print(str(volume_water))
-
-        ser.write(str(int(volume_ethanol)).encode("ascii"))
-        time.sleep(0.5)
-        ser.write(str(int(volume_water)).encode("ascii"))
-        time.sleep(0.5)
+        print(volume_ethanol)
+        print(volume_water)
+        pattern = 'n' + str(volume_water) + '#' + str(volume_ethanol)
+        print(pattern)
+        ser.write(pattern.encode("ascii"))
+        time.sleep(1)
 
         result_label.config(
             text=f"Volume d'éthanol : {volume_ethanol:.2f} mL\nVolume d'eau : {volume_water:.2f} mL"
