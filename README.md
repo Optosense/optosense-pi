@@ -27,5 +27,5 @@ chmod +x ~/Desktop/interface.py
 
 ## TODO:
 
-- [ ] make a service that launch at startup
-- [ ] better handling of serial communication
+- [ ] ~make a service that launch at startup~
+- [x] better handling of serial communication
